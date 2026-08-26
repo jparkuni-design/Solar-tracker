@@ -1,0 +1,16 @@
+# Build artifacts
+build/
+*.hex
+*.elf
+
+# IDE
+.vscode/
+*.code-workspace
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Data logs (collected in the field, not source)
+*.csv
