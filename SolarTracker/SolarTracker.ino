@@ -58,6 +58,12 @@ float panelVoltage;
 float panelCurrent;
 float panelPower;
 
+//Energy accumulation (Wh) setup
+unsigned long prevTime=0;
+float energyWh=0;
+unsigned long printTime=0;
+const unsigned long printEvery=1000; //ms between Serial Wh prints
+
 //LED indicator setup (Completed)
 int ledpin=2;
 
@@ -73,6 +79,8 @@ void setup() {
   pinMode(switchpin, INPUT_PULLUP);
   digitalWrite(switchpin, HIGH);
   pinMode(ledpin,OUTPUT);
+  prevTime=millis();
+  printTime=millis();
 }
 
 //Loop
@@ -84,6 +92,12 @@ westval=analogRead(ps2);//A1
 southval=analogRead(ps3);//A2
 eastval=analogRead(ps4);//A3
 
+
+int ps1=A3;
+int ps2=A2;
+int ps3=A1;
+int ps4=A0;
+
 //Voltage/Current loop
 int rawV=analogRead(voltagePin);
 panelVoltage=(rawV / 1023.0) * 5.0 * VOLTAGE_DIVIDER_RATIO;
@@ -93,6 +107,19 @@ int rawI = analogRead(currentPin);
 float senseVoltage=(rawI / 1023.0) * 5.0;
 panelCurrent=(senseVoltage - ACS712_ZERO_CURRENT_VOLTAGE) / ACS712_SENSITIVITY;
 panelPower=panelVoltage * panelCurrent;
+
+//Energy accumulation (Wh) loop
+unsigned long now=millis();
+float hours=(now - prevTime) / 3600000.0;
+energyWh += panelPower * hours;
+prevTime=now;
+
+if (now - printTime >= printEvery) {
+  Serial.print("Energy: ");
+  Serial.print(energyWh, 4);
+  Serial.println(" Wh");
+  printTime=now;
+}
 
 //DHT-11 loop
 humidity=HT.readHumidity();
