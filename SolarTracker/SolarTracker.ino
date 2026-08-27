@@ -20,8 +20,6 @@ int ypin=9;
 int anglex=90;
 int angley=90;
 
-//Overall delaytime
-int dt=300;
 
 //DHT-11 setup (completed)
 #include "DHT.h"
@@ -91,12 +89,6 @@ northval=analogRead(ps1);//A0
 westval=analogRead(ps2);//A1
 southval=analogRead(ps3);//A2
 eastval=analogRead(ps4);//A3
-
-
-int ps1=A3;
-int ps2=A2;
-int ps3=A1;
-int ps4=A0;
 
 //Voltage/Current loop
 int rawV=analogRead(voltagePin);
