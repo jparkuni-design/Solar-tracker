@@ -4,7 +4,7 @@ build/
 *.elf
 
 # IDE
-.vscode/
+*Arduino IDE
 *.code-workspace
 
 # OS junk
@@ -13,4 +13,4 @@ Thumbs.db
 desktop.ini
 
 # Data logs (collected in the field, not source)
-*.csv
+*Arduino IDE
