@@ -55,7 +55,7 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 
 **ACS712** — Measures the current the panel produces, so the program can calculate real power output (V × I) and confirm the tracker is improving energy capture.
 
-[*Wiring diagram pending — will be added once exported from Drive.*](https://drive.google.com/file/d/1aOH7hUzrwU2VTqaUWwQd1LtM1pcOUhdv/view?usp=drive_link )
+https://drive.google.com/file/d/1aOH7hUzrwU2VTqaUWwQd1LtM1pcOUhdv/view?usp=drive_link
 
 ## Support / Usage Components
 
