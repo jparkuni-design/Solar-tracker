@@ -6,6 +6,7 @@ The panel actively follows the sun across two axes using four light sensors, whi
 
 ## Table of Contents
 - [Functional Components](#functional-components)
+- [Pin Reference](#pin-reference)
 - [Support / Usage Components](#support--usage-components)
 - [Setup & Usage](#setup--usage)
 - [Conclusion](#conclusion)
@@ -56,6 +57,24 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 **ACS712** — Measures the current the panel produces, so the program can calculate real power output (V × I) and confirm the tracker is improving energy capture.
 
 https://drive.google.com/file/d/1aOH7hUzrwU2VTqaUWwQd1LtM1pcOUhdv/view?usp=drive_link
+
+## Pin Reference
+
+| Component | Arduino Nano Pin | Notes |
+|---|---|---|
+| LCD — SDA | A4 | I2C bus |
+| LCD — SCL | A5 | I2C bus |
+| Photoresistor — North (`ps1`) | A3 | |
+| Photoresistor — West (`ps2`) | A2 | |
+| Photoresistor — South (`ps3`) | A1 | |
+| Photoresistor — East (`ps4`) | A0 | |
+| DHT-11 data (`sensePin`) | D8 | |
+| ServoY (`ypin`) | D9 | Y-axis |
+| ServoX (`xpin`) | D10 | X-axis |
+| Toggle switch (`switchpin`) | D3 | `INPUT_PULLUP` |
+| LED indicator (`ledpin`) | D2 | |
+| Panel voltage sense (`voltagePin`) | A6 | Through voltage divider |
+| Panel current sense (`currentPin`) | A7 | ACS712 output |
 
 ## Support / Usage Components
 
