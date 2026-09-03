@@ -56,7 +56,7 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 
 **ACS712** — Measures the current the panel produces, so the program can calculate real power output (V × I) and confirm the tracker is improving energy capture.
 
-https://drive.google.com/file/d/1aOH7hUzrwU2VTqaUWwQd1LtM1pcOUhdv/view?usp=drive_link
+[Solar panel + ACS712 wiring diagram](./assets/solar_panel_wiring_diagram.txt)
 
 ## Pin Reference
 
@@ -73,7 +73,7 @@ https://drive.google.com/file/d/1aOH7hUzrwU2VTqaUWwQd1LtM1pcOUhdv/view?usp=drive
 | ServoX (`xpin`) | D10 | X-axis |
 | Toggle switch (`switchpin`) | D3 | `INPUT_PULLUP` |
 | LED indicator (`ledpin`) | D2 | |
-| Panel voltage sense (`voltagePin`) | A6 | Through voltage divider |
+| Panel voltage sense (`voltagePin`) | A6 | Raw panel voltage, no divider — keep under 5V |
 | Panel current sense (`currentPin`) | A7 | ACS712 output |
 
 ## Support / Usage Components
