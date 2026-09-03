@@ -60,7 +60,10 @@ int lastSwitchState=HIGH;
 //Voltage/Current setup
 int voltagePin=A6;
 int currentPin=A7;
-// NO DIVIDER - reading raw panel voltage directly. DO NOT let this exceed 5V or you risk damaging A6.
+
+
+
+//Voltage/Current setup, A6 reads the raw value from the panel (Completed)
 const float VOLTAGE_DIVIDER_RATIO=1.0;
 const float ACS712_SENSITIVITY=0.185;
 const float ACS712_ZERO_CURRENT_VOLTAGE=2.5;
