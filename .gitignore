@@ -13,4 +13,5 @@ Thumbs.db
 desktop.ini
 
 # Data logs (collected in the field, not source)
-*Arduino IDE
+*.csv
+data_logs/
