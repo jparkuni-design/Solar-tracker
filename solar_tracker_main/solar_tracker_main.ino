@@ -108,6 +108,9 @@ float hoursElapsed = (now - lastMillis) / 3600000.0;
 wattHours += panelPower * hoursElapsed;
 lastMillis = now;
 
+Serial.print("E(Wh): ");
+Serial.println(wattHours, 2);
+
 //DHT-11 loop
 humidity=HT.readHumidity();
 tempC=HT.readTemperature();
