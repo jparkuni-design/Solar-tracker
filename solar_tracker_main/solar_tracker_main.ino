@@ -1,7 +1,8 @@
-//Abs value setup
+//Abs value setup (Completed)
 #include <math.h>
 
-//LCD setup
+
+//LCD setup (Completed)
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 int j;
@@ -14,7 +15,8 @@ String text6="I(A):";
 String text7="P(W):";
 String text8="E(Wh):";
 
-//Servo setup (completed)
+
+//Servo setup (Completed)
 #include <Servo.h>
 Servo Yservo;
 Servo Xservo;
@@ -23,19 +25,22 @@ int ypin=9;
 int anglex=90;
 int angley=90;
 
+
 //Overall delaytime
 int dt=300;
 
-//DHT-11 setup (completed)
+
+//DHT-11 setup (Completed)
 #include "DHT.h"
 #define Type DHT11
 int sensePin=8;
 DHT HT(sensePin,Type);
 float humidity;
 float tempC;
-float tempF; // computed but not displayed on LCD (row budget)
+float tempF;
 
-//NWSE photoresistor setups (completed)
+
+//NWSE photoresistor setups (Completed)
 int ps1=A3;//N
 int ps2=A2;//W
 int ps3=A1;//S
@@ -46,32 +51,34 @@ int southval;
 int eastval;
 int treshold=40;
 
-//Display toggle switch setup (Completed)
+
+//Voltage/Current setup, A6 reads the raw value from the panel (Completed)
 int switchpin=3;
 int lastSwitchState=HIGH;
+
 
 //Voltage/Current setup
 int voltagePin=A6;
 int currentPin=A7;
-const float R1=10000.0; // top resistor
-const float R2=10000.0; // bottom resistor
-const float VOLTAGE_DIVIDER_RATIO=(R1 + R2) / R2; // =2.0, max readable ~10V (safety feature)
-const float ACS712_SENSITIVITY=0.185; // 5A module = 0.185, 20A = 0.100, 30A = 0.066
+// NO DIVIDER - reading raw panel voltage directly. DO NOT let this exceed 5V or you risk damaging A6.
+const float VOLTAGE_DIVIDER_RATIO=1.0;
+const float ACS712_SENSITIVITY=0.185;
 const float ACS712_ZERO_CURRENT_VOLTAGE=2.5;
 float panelVoltage;
 float panelCurrent;
 float panelPower;
 
+
 //Energy accumulation setup
 unsigned long lastMillis = 0;
 float wattHours = 0.0;
 
+
 //LED indicator setup (Completed)
 int ledpin=2;
 
-//initial on program
+
 void setup() {
-  //initial setup init
   Serial.begin(9600);
   Xservo.attach(xpin);
   Yservo.attach(ypin);
@@ -84,23 +91,48 @@ void setup() {
   lastMillis = millis();
 }
 
-//Loop
+
 void loop() {
 
-//Photoresistors loop
-northval=analogRead(ps1);//A3
-westval=analogRead(ps2);//A2
-southval=analogRead(ps3);//A1
-eastval=analogRead(ps4);//A0
 
-//Voltage/Current loop
-int rawV=analogRead(voltagePin);
+//Photoresistors loop
+northval=analogRead(ps1);
+westval=analogRead(ps2);
+southval=analogRead(ps3);
+eastval=analogRead(ps4);
+
+
+//Voltage/Current loop (averaged over 10 samples to reduce ADC noise)
+long rawVsum = 0;
+long rawIsum = 0;
+for (int k=0; k<10; k++) {
+  rawVsum += analogRead(voltagePin);
+  rawIsum += analogRead(currentPin);
+}
+int rawV = rawVsum / 10;
+int rawI = rawIsum / 10;
+
+
 panelVoltage=(rawV / 1023.0) * 5.0 * VOLTAGE_DIVIDER_RATIO;
 
-int rawI = analogRead(currentPin);
+
 float senseVoltage=(rawI / 1023.0) * 5.0;
 panelCurrent=abs((senseVoltage - ACS712_ZERO_CURRENT_VOLTAGE) / ACS712_SENSITIVITY);
 panelPower=panelVoltage * panelCurrent;
+
+
+// RAW DEBUG - tells us if it's a wiring problem also giving track of how each variables change over time
+Serial.print("rawV: ");
+Serial.print(rawV);
+Serial.print("  rawI: ");
+Serial.print(rawI);
+Serial.print("  |  V: ");
+Serial.print(panelVoltage, 3);
+Serial.print("  I: ");
+Serial.print(panelCurrent, 3);
+Serial.print("  P: ");
+Serial.println(panelPower, 3);
+
 
 //Energy accumulation loop
 unsigned long now = millis();
@@ -108,13 +140,20 @@ float hoursElapsed = (now - lastMillis) / 3600000.0;
 wattHours += panelPower * hoursElapsed;
 lastMillis = now;
 
+
+Serial.print("E(Wh): ");
+Serial.println(wattHours, 2);
+
+
 //DHT-11 loop
 humidity=HT.readHumidity();
 tempC=HT.readTemperature();
 tempF=HT.readTemperature(true);
 
+
 //Toggle Switch operation (digital read, clean HIGH/LOW)
 int currentSwitchState=digitalRead(switchpin);
+
 
 //Lcd loading page operation
 if (currentSwitchState == LOW && lastSwitchState == HIGH) {
@@ -133,20 +172,23 @@ if (currentSwitchState == LOW && lastSwitchState == HIGH) {
   lcd.clear();
 }
 
+
 lastSwitchState = currentSwitchState;
+
 
 //lcd display ON data display operation
 if (currentSwitchState == LOW) {
   lcd.backlight();
-
   digitalWrite(ledpin,HIGH);
 
-  // Row 0: Humidity + Temp(C)
+
+// Row 0: Humidity + Temp(C)
   lcd.setCursor(0,0);
   lcd.print(text2);//"H(%):"
   lcd.setCursor(5,0);
   lcd.print(humidity,2);
   lcd.print("  ");
+
 
   lcd.setCursor(10,0);
   lcd.print(text3);//"T(C):"
@@ -154,12 +196,14 @@ if (currentSwitchState == LOW) {
   lcd.print(tempC,2);
   lcd.print("  ");
 
-  // Row 1: Voltage + Current
+
+// Row 1: Voltage + Current
   lcd.setCursor(0,1);
   lcd.print(text5);//"V(V):"
   lcd.setCursor(5,1);
   lcd.print(panelVoltage,2);
   lcd.print("   ");
+
 
   lcd.setCursor(10,1);
   lcd.print(text6);//"I(A):"
@@ -167,14 +211,18 @@ if (currentSwitchState == LOW) {
   lcd.print(panelCurrent,2);
   lcd.print("  ");
 
-  // Row 2: Power
+
+
+
+// Row 2: Power
   lcd.setCursor(0,2);
   lcd.print(text7);//"P(W):"
   lcd.setCursor(5,2);
   lcd.print(panelPower,2);
   lcd.print("      ");
 
-  // Row 3: Energy
+
+// Row 3: Energy
   lcd.setCursor(0,3);
   lcd.print(text8);//"E(Wh):"
   lcd.setCursor(6,3);
@@ -182,15 +230,20 @@ if (currentSwitchState == LOW) {
   lcd.print("      ");
 }
 
+
+
+
 //lcd display OFF operation
 else {
   lcd.noBacklight();
   digitalWrite(ledpin,LOW);
 }
 
+
 //Automated motor adjustment operation
 int maxVal = max(max(northval, southval), max(eastval, westval));
 int minVal = min(min(northval, southval), min(eastval, westval));
+
 
 if (maxVal - minVal < treshold) {
   anglex = 90;
@@ -204,6 +257,7 @@ else {
     anglex = anglex - 3;
   }
 
+
   if (northval - southval > treshold) {
     angley = angley + 3;
   }
@@ -212,15 +266,15 @@ else {
   }
 }
 
+
+//Moving Servo loop
 anglex=constrain(anglex, 20, 160);
 angley=constrain(angley, 20, 160);
 
-//Moving Servo loop
+
 Xservo.write(anglex);
 Yservo.write(angley);
 
-//ENergy storage track loop
-Serial.println(wattHours);
 
 //Error prohibition delay
 delay(50);
