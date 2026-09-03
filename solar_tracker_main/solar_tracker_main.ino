@@ -219,6 +219,9 @@ angley=constrain(angley, 20, 160);
 Xservo.write(anglex);
 Yservo.write(angley);
 
+//ENergy storage track loop
+Serial.println(wattHours);
+
 //Error prohibition delay
 delay(50);
 }
