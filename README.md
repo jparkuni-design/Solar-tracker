@@ -73,7 +73,7 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 | ServoX (`xpin`) | D10 | X-axis |
 | Toggle switch (`switchpin`) | D3 | `INPUT_PULLUP` |
 | LED indicator (`ledpin`) | D2 | |
-| Panel voltage sense (`voltagePin`) | A6 | Raw panel voltage, no divider — keep under 5V |
+| Panel voltage sense (`voltagePin`) | A6 | Raw panel voltage|
 | Panel current sense (`currentPin`) | A7 | ACS712 output |
 
 ## Support / Usage Components
