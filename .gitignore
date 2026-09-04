@@ -4,7 +4,6 @@ build/
 *.elf
 
 # IDE
-*Arduino IDE
 *.code-workspace
 
 # OS junk

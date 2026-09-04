@@ -1,7 +1,6 @@
 //Abs value setup (Completed)
 #include <math.h>
 
-
 //LCD setup (Completed)
 #include <LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27, 20, 4);
@@ -15,7 +14,6 @@ String text6="I(A):";
 String text7="P(W):";
 String text8="E(Wh):";
 
-
 //Servo setup (Completed)
 #include <Servo.h>
 Servo Yservo;
@@ -25,10 +23,8 @@ int ypin=9;
 int anglex=90;
 int angley=90;
 
-
 //Overall delaytime
 int dt=300;
-
 
 //DHT-11 setup (Completed)
 #include "DHT.h"
@@ -39,7 +35,6 @@ float humidity;
 float tempC;
 float tempF;
 
-
 //NWSE photoresistor setups (Completed)
 int ps1=A3;//N
 int ps2=A2;//W
@@ -49,19 +44,15 @@ int northval;
 int westval;
 int southval;
 int eastval;
-int treshold=40;
-
+int threshold=40;
 
 //Voltage/Current setup, A6 reads the raw value from the panel (Completed)
 int switchpin=3;
 int lastSwitchState=HIGH;
 
-
 //Voltage/Current setup
 int voltagePin=A6;
 int currentPin=A7;
-
-
 
 //Voltage/Current setup, A6 reads the raw value from the panel (Completed)
 const float VOLTAGE_DIVIDER_RATIO=1.0;
@@ -71,15 +62,12 @@ float panelVoltage;
 float panelCurrent;
 float panelPower;
 
-
 //Energy accumulation setup
 unsigned long lastMillis = 0;
 float wattHours = 0.0;
 
-
 //LED indicator setup (Completed)
 int ledpin=2;
-
 
 void setup() {
   Serial.begin(9600);
@@ -94,16 +82,13 @@ void setup() {
   lastMillis = millis();
 }
 
-
 void loop() {
-
 
 //Photoresistors loop
 northval=analogRead(ps1);
 westval=analogRead(ps2);
 southval=analogRead(ps3);
 eastval=analogRead(ps4);
-
 
 //Voltage/Current loop (averaged over 10 samples to reduce ADC noise)
 long rawVsum = 0;
@@ -115,14 +100,11 @@ for (int k=0; k<10; k++) {
 int rawV = rawVsum / 10;
 int rawI = rawIsum / 10;
 
-
 panelVoltage=(rawV / 1023.0) * 5.0 * VOLTAGE_DIVIDER_RATIO;
-
 
 float senseVoltage=(rawI / 1023.0) * 5.0;
 panelCurrent=abs((senseVoltage - ACS712_ZERO_CURRENT_VOLTAGE) / ACS712_SENSITIVITY);
 panelPower=panelVoltage * panelCurrent;
-
 
 // RAW DEBUG - tells us if it's a wiring problem also giving track of how each variables change over time
 Serial.print("rawV: ");
@@ -136,27 +118,22 @@ Serial.print(panelCurrent, 3);
 Serial.print("  P: ");
 Serial.println(panelPower, 3);
 
-
 //Energy accumulation loop
 unsigned long now = millis();
 float hoursElapsed = (now - lastMillis) / 3600000.0;
 wattHours += panelPower * hoursElapsed;
 lastMillis = now;
 
-
 Serial.print("E(Wh): ");
 Serial.println(wattHours, 2);
-
 
 //DHT-11 loop
 humidity=HT.readHumidity();
 tempC=HT.readTemperature();
 tempF=HT.readTemperature(true);
 
-
 //Toggle Switch operation (digital read, clean HIGH/LOW)
 int currentSwitchState=digitalRead(switchpin);
-
 
 //Lcd loading page operation
 if (currentSwitchState == LOW && lastSwitchState == HIGH) {
@@ -175,15 +152,12 @@ if (currentSwitchState == LOW && lastSwitchState == HIGH) {
   lcd.clear();
 }
 
-
 lastSwitchState = currentSwitchState;
-
 
 //lcd display ON data display operation
 if (currentSwitchState == LOW) {
   lcd.backlight();
   digitalWrite(ledpin,HIGH);
-
 
 // Row 0: Humidity + Temp(C)
   lcd.setCursor(0,0);
@@ -192,13 +166,11 @@ if (currentSwitchState == LOW) {
   lcd.print(humidity,2);
   lcd.print("  ");
 
-
   lcd.setCursor(10,0);
   lcd.print(text3);//"T(C):"
   lcd.setCursor(15,0);
   lcd.print(tempC,2);
   lcd.print("  ");
-
 
 // Row 1: Voltage + Current
   lcd.setCursor(0,1);
@@ -207,15 +179,11 @@ if (currentSwitchState == LOW) {
   lcd.print(panelVoltage,2);
   lcd.print("   ");
 
-
   lcd.setCursor(10,1);
   lcd.print(text6);//"I(A):"
   lcd.setCursor(15,1);
   lcd.print(panelCurrent,2);
   lcd.print("  ");
-
-
-
 
 // Row 2: Power
   lcd.setCursor(0,2);
@@ -223,7 +191,6 @@ if (currentSwitchState == LOW) {
   lcd.setCursor(5,2);
   lcd.print(panelPower,2);
   lcd.print("      ");
-
 
 // Row 3: Energy
   lcd.setCursor(0,3);
@@ -233,51 +200,42 @@ if (currentSwitchState == LOW) {
   lcd.print("      ");
 }
 
-
-
-
 //lcd display OFF operation
 else {
   lcd.noBacklight();
   digitalWrite(ledpin,LOW);
 }
 
-
 //Automated motor adjustment operation
 int maxVal = max(max(northval, southval), max(eastval, westval));
 int minVal = min(min(northval, southval), min(eastval, westval));
 
-
-if (maxVal - minVal < treshold) {
+if (maxVal - minVal < threshold) {
   anglex = 90;
   angley = 90;
 }
 else {
-  if (westval - eastval > treshold) {
+  if (westval - eastval > threshold) {
     anglex = anglex + 3;
   }
-  else if (eastval - westval > treshold) {
+  else if (eastval - westval > threshold) {
     anglex = anglex - 3;
   }
 
-
-  if (northval - southval > treshold) {
+  if (northval - southval > threshold) {
     angley = angley + 3;
   }
-  else if (southval - northval > treshold) {
+  else if (southval - northval > threshold) {
     angley = angley - 3;
   }
 }
-
 
 //Moving Servo loop
 anglex=constrain(anglex, 20, 160);
 angley=constrain(angley, 20, 160);
 
-
 Xservo.write(anglex);
 Yservo.write(angley);
-
 
 //Error prohibition delay
 delay(50);

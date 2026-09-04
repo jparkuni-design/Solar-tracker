@@ -10,6 +10,7 @@ The panel actively follows the sun across two axes using four light sensors, whi
 - [Support / Usage Components](#support--usage-components)
 - [Setup & Usage](#setup--usage)
 - [Conclusion](#conclusion)
+- [Lab Results](./docs/Solar_Tracker_Lab_Results.pdf)
 
 ## Functional Components
 
@@ -56,7 +57,7 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 
 **ACS712** — Measures the current the panel produces, so the program can calculate real power output (V × I) and confirm the tracker is improving energy capture.
 
-[Solar panel + ACS712 wiring diagram](./assets/solar_panel_wiring_diagram.txt)
+[Solar panel + ACS712 wiring diagram](./assets/solar_panel_wiring_diagram.md)
 
 ## Pin Reference
 

@@ -1,0 +1,4 @@
+Self-made wiring diagram for full hardware connections:
+100x100mm solar panel, ACS712, Arduino Nano, shared VCC, shared GND, indicator LED.
+
+[View diagram](https://drive.google.com/drive/folders/1yO4UaFHYp1oIxZNdKtdKqb1P9JV-Wizy?usp=drive_link)
