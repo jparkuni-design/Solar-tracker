@@ -7,7 +7,7 @@ The panel actively follows the sun across two axes using four photoresistors, wh
 ## Table of Contents
 - [Functional Components](#functional-components)
 - [Pin Reference](#pin-reference)
-- [Support / Non-functional components](#support--usage-components)
+- [Support / Non-functional components](#support--non-functional-components)
 - [Setup & Usage](#setup--usage)
 - [Conclusion](#conclusion)
 - [Lab Results](#lab-results)
