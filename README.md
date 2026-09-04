@@ -46,8 +46,8 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 
 ### 4. Servo Motors x2 (ServoX & ServoY)
 
-**ServoX** — Drives panel rotation across the X-axis (0–180°).
-**ServoY** — Drives panel rotation across the Y-axis (0–180°).
+**ServoX** — Drives panel rotation across the X-axis (20–160°).
+**ServoY** — Drives panel rotation across the Y-axis (20–160°).
 
 ![Servo wiring diagram](./assets/servo_wiring_diagram.png)
 
@@ -74,7 +74,7 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 | ServoX (`xpin`) | D10 | X-axis |
 | Toggle switch (`switchpin`) | D3 | `INPUT_PULLUP` |
 | LED indicator (`ledpin`) | D2 | |
-| Panel voltage sense (`voltagePin`) | A6 | Raw panel voltage|
+| Panel voltage sense (`voltagePin`) | A6 | Raw panel voltage |
 | Panel current sense (`currentPin`) | A7 | ACS712 output |
 
 ## Support / Usage Components
@@ -87,7 +87,7 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 | External Power Provider + 9V Battery | Supplies power to the Nano and servos independently of USB, allowing the tracker to run untethered/portable. |
 | Breadboard (x2) | Solderless platform for prototyping the sensor, LED, and divider circuits before finalizing connections. |
 | Jumper Wires | Carry connections between the Arduino, sensors, LCD, servos, and breadboard. |
-| Zenga Blocks (2x) | Structural support for mounting the servo motors at the correct height/angle. |
+| Jenga Blocks (2x) | Structural support for mounting the servo motors at the correct height/angle. |
 | Main Base | Mounting platform holding all components together as a stable unit. |
 
 ## Setup & Usage

@@ -33,7 +33,6 @@ int sensePin=8;
 DHT HT(sensePin,Type);
 float humidity;
 float tempC;
-float tempF;
 
 //NWSE photoresistor setups (Completed)
 int ps1=A3;//N
@@ -99,7 +98,6 @@ for (int k=0; k<10; k++) {
 }
 int rawV = rawVsum / 10;
 int rawI = rawIsum / 10;
-
 panelVoltage=(rawV / 1023.0) * 5.0 * VOLTAGE_DIVIDER_RATIO;
 
 float senseVoltage=(rawI / 1023.0) * 5.0;
@@ -130,7 +128,6 @@ Serial.println(wattHours, 2);
 //DHT-11 loop
 humidity=HT.readHumidity();
 tempC=HT.readTemperature();
-tempF=HT.readTemperature(true);
 
 //Toggle Switch operation (digital read, clean HIGH/LOW)
 int currentSwitchState=digitalRead(switchpin);
