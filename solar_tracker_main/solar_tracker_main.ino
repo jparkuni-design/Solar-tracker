@@ -37,7 +37,6 @@ int sensePin=8;
 DHT HT(sensePin,Type);
 float humidity;
 float tempC;
-float tempF;
 
 
 //NWSE photoresistor setups (Completed)
@@ -151,7 +150,6 @@ Serial.println(wattHours, 2);
 //DHT-11 loop
 humidity=HT.readHumidity();
 tempC=HT.readTemperature();
-tempF=HT.readTemperature(true);
 
 
 //Toggle Switch operation (digital read, clean HIGH/LOW)
