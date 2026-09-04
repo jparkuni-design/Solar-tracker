@@ -11,6 +11,7 @@ The panel actively follows the sun across two axes using four light sensors, whi
 - [Setup & Usage](#setup--usage)
 - [Conclusion](#conclusion)
 - [Lab Results](#lab-results)
+- [Media Gallery](#media-gallery)
 
 ## Functional Components
 
@@ -116,3 +117,7 @@ This project demonstrates a fully functional dual-axis solar tracking system bui
 ## Lab Results
 
 Full test data and methodology behind the 28.04% efficiency improvement figure are documented in the [lab results report](./docs/Solar_Tracker_Lab_Results.pdf).
+
+## Media Gallery
+
+Photos and video of the components, the tracker in action, and testing footage are linked in [`assets/media_gallery.md`](./assets/media_gallery.md).
