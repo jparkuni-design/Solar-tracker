@@ -113,11 +113,7 @@ for (int k=0; k<10; k++) {
 }
 int rawV = rawVsum / 10;
 int rawI = rawIsum / 10;
-
-
 panelVoltage=(rawV / 1023.0) * 5.0 * VOLTAGE_DIVIDER_RATIO;
-
-
 float senseVoltage=(rawI / 1023.0) * 5.0;
 panelCurrent=abs((senseVoltage - ACS712_ZERO_CURRENT_VOLTAGE) / ACS712_SENSITIVITY);
 panelPower=panelVoltage * panelCurrent;
@@ -213,8 +209,6 @@ if (currentSwitchState == LOW) {
   lcd.print("  ");
 
 
-
-
 // Row 2: Power
   lcd.setCursor(0,2);
   lcd.print(text7);//"P(W):"
@@ -230,8 +224,6 @@ if (currentSwitchState == LOW) {
   lcd.print(wattHours,2);
   lcd.print("      ");
 }
-
-
 
 
 //lcd display OFF operation
