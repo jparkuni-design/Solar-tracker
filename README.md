@@ -45,8 +45,8 @@ Purpose: To read temperature (°C) and humidity (%) and display it live on the L
 
 ### 4. Servo Motors x2 (ServoX & ServoY)
 
-**ServoX** — Drives panel rotation across the X-axis (0–180°).
-**ServoY** — Drives panel rotation across the Y-axis (0–180°).
+**ServoX** — Drives panel rotation across the X-axis (20–160°).
+**ServoY** — Drives panel rotation across the Y-axis (20–160°).
 
 ![Servo wiring diagram](./assets/servo_wiring_diagram.png)
 
