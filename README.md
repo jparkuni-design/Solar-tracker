@@ -81,7 +81,7 @@ The Arduino Nano, toggle switch, status LED, and 9V battery, plus the interface 
 
 [Main system interconnect (KiCad schematic, PDF)](./hardware/kicad/06_main_system_interconnect.pdf)
 
-All 6 circuits are documented as standalone KiCad schematics with standardized net labels and connector naming. The editable `.kicad_sch` source files (open with [KiCad](https://www.kicad.org/), free) live in [`hardware/kicad/`](./hardware/kicad/) alongside these PDFs.
+All 6 circuits are documented as standalone KiCad schematics with standardized net labels and connector naming. The editable `.kicad_sch` source files live in [`hardware/kicad/`](./hardware/kicad/) alongside these PDFs.
 
 [Power measurement circuit (KiCad)](./hardware/kicad/05_power_measurement.kicad_sch)
 
