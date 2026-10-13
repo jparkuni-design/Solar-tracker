@@ -23,7 +23,7 @@ Purpose: To reduce the number of pins used on the Arduino Nano.
 **LCD display (20x4)**
 Purpose: To live-display environmental/electrical data: Humidity (%), Temperature (C), Voltage (V), Current (A), Power (W), Energy (Wh).
 
-Display layout:
+Display layout (#-Raw field data):
 ```
 H(%):##.##T(C):##.##
 V(V):##.##(A):##.##
@@ -31,7 +31,11 @@ P(W):##.##
 E(Wh):##.##
 ```
 
+
 [LCD I2C circuit (KiCad schematic, PDF)](./hardware/kicad/04_lcd_i2c_display.pdf)
+
+[LCD I2C circuit (KiCad)](./hardware/kicad/04_lcd_i2c_display.kicad_sch)
+main
 
 ### 2. Photoresistors (North, West, South, East)
 
@@ -39,11 +43,17 @@ Purpose: To compare voltages across the four NWSE sensors and use `analogRead()`
 
 [Photoresistor sensor circuit (KiCad schematic, PDF)](./hardware/kicad/01_photoresistor_sensors.pdf)
 
+[Photoresistor sensor circuit (KiCad)](./hardware/kicad/01_photoresistor_sensors.kicad_sch)
+main
+
 ### 3. DHT-11 Sensor
 
 Purpose: To read temperature (°C) and humidity (%) with microcoltroller (arduino nano) and display it live on the LCD.
 
 [DHT-11 sensor circuit (KiCad schematic, PDF)](./hardware/kicad/02_dht11_sensor.pdf)
+
+[DHT-11 sensor circuit (KiCad)](./hardware/kicad/02_dht11_sensor.kicad_sch)
+main
 
 ### 4. Servo Motors x2 (ServoX & ServoY)
 
@@ -52,12 +62,16 @@ Purpose: To read temperature (°C) and humidity (%) with microcoltroller (arduin
 
 [Servo actuator circuit (KiCad schematic, PDF)](./hardware/kicad/03_servo_actuators.pdf)
 
+[Servo actuator circuit (KiCad)](./hardware/kicad/03_servo_actuators.kicad_sch)
+main
+
 ### 5. Solar Panel (100x100mm) + ACS712
 
 Purpose:
 **Solar Panel** — Converts sunlight into electricity via the photoelectric effect, lighting the red LED indicator and providing raw data for the Nano to read and display.
 
 **ACS712** — Measures the current (A) the panel produces, so the program can calculate real power output (V × I) and confirm the tracker is improving energy capture.
+
 
 [Power measurement circuit (KiCad schematic, PDF)](./hardware/kicad/05_power_measurement.pdf)
 
@@ -68,6 +82,12 @@ The Arduino Nano, toggle switch, status LED, and 9V battery, plus the interface 
 [Main system interconnect (KiCad schematic, PDF)](./hardware/kicad/06_main_system_interconnect.pdf)
 
 All 6 circuits are documented as standalone KiCad schematics with standardized net labels and connector naming. The editable `.kicad_sch` source files (open with [KiCad](https://www.kicad.org/), free) live in [`hardware/kicad/`](./hardware/kicad/) alongside these PDFs.
+
+[Power measurement circuit (KiCad)](./hardware/kicad/05_power_measurement.kicad_sch)
+
+[Main system interconnect — Arduino Nano (KiCad)]
+(./hardware/kicad/06_main_system_interconnect.kicad_sch)
+main
 
 ## Pin Reference
 
