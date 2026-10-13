@@ -31,26 +31,26 @@ P(W):##.##
 E(Wh):##.##
 ```
 
-![LCD wiring diagram](./assets/lcd_wiring_diagram.png)
+[LCD I2C circuit (KiCad schematic, PDF)](./hardware/kicad/04_lcd_i2c_display.pdf)
 
 ### 2. Photoresistors (North, West, South, East)
 
 Purpose: To compare voltages across the four NWSE sensors and use `analogRead()` to drive `anglex` and `angley` for both servo motors.
 
-![Photoresistor wiring diagram](./assets/photoresistor_wiring_diagram.png)
+[Photoresistor sensor circuit (KiCad schematic, PDF)](./hardware/kicad/01_photoresistor_sensors.pdf)
 
 ### 3. DHT-11 Sensor
 
 Purpose: To read temperature (°C) and humidity (%) with microcoltroller (arduino nano) and display it live on the LCD.
 
-![DHT-11 wiring diagram](./assets/dht11_wiring_diagram.png)
+[DHT-11 sensor circuit (KiCad schematic, PDF)](./hardware/kicad/02_dht11_sensor.pdf)
 
 ### 4. Servo Motors x2 (ServoX & ServoY)
 
 **ServoX** — Drives panel rotation across the X-axis (20–160°).
 **ServoY** — Drives panel rotation across the Y-axis (20–160°).
 
-![Servo wiring diagram](./assets/servo_wiring_diagram.png)
+[Servo actuator circuit (KiCad schematic, PDF)](./hardware/kicad/03_servo_actuators.pdf)
 
 ### 5. Solar Panel (100x100mm) + ACS712
 
@@ -59,7 +59,15 @@ Purpose:
 
 **ACS712** — Measures the current (A) the panel produces, so the program can calculate real power output (V × I) and confirm the tracker is improving energy capture.
 
-[Solar panel + ACS712 wiring diagram](./assets/solar_panel_wiring_diagram.md)
+[Power measurement circuit (KiCad schematic, PDF)](./hardware/kicad/05_power_measurement.pdf)
+
+### 6. Main System Interconnect
+
+The Arduino Nano, toggle switch, status LED, and 9V battery, plus the interface connectors tying together the 5 circuits above into the full system.
+
+[Main system interconnect (KiCad schematic, PDF)](./hardware/kicad/06_main_system_interconnect.pdf)
+
+All 6 circuits are documented as standalone KiCad schematics with standardized net labels and connector naming. The editable `.kicad_sch` source files (open with [KiCad](https://www.kicad.org/), free) live in [`hardware/kicad/`](./hardware/kicad/) alongside these PDFs.
 
 ## Pin Reference
 
