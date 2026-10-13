@@ -23,7 +23,7 @@ Purpose: To reduce the number of pins used on the Arduino Nano.
 **LCD display (20x4)**
 Purpose: To live-display environmental/electrical data: Humidity (%), Temperature (C), Voltage (V), Current (A), Power (W), Energy (Wh).
 
-Display layout:
+Display layout (#-Raw field data):
 ```
 H(%):##.##T(C):##.##
 V(V):##.##(A):##.##
